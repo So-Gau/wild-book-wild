@@ -129,3 +129,32 @@ footer {
    height: 20px;
    width: 20px; 
 }
+
+/* FROM */
+.formRow {
+  display: flex;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 200px;
+  margin-left: 80px;
+  margin-top: 30px;
+}
+
+.styleButton{
+  margin-top: 15px;
+    text-align: center;
+    color: #f76c6c;
+    background: white;
+    border: 1px solid #f76c6c;
+    box-shadow: 2px 2px 4px rgb(0 0 0 / 15%);
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.form-container input {
+  margin-bottom: 5px;
+}

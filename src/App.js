@@ -1,44 +1,24 @@
 import './App.css';
+import axios from 'axios';
 import Wilder from "./components/Wilder"
-import { useState } from 'react';
+import Form from './components/Form';
+import { useEffect, useState } from 'react';
 
-const wildersData = [
-  {
-    name: "Ringo",
-    city: "London",
-    skills: [
-      { title: "JS", votes: 10 },
-      { title: "React", votes: 8 },
-    ],
-  },
-  {
-    name: "John",
-    city: "Paris",
-    skills: [
-      { title: "PHP", votes: 9 },
-      { title: "Symfony", votes: 9 },
-    ],
-  },
-  {
-    name: "George",
-    city: "Berlin",
-    skills: [
-      { title: "Ruby", votes: 10 },
-      { title: "JS", votes: 8 },
-    ],
-  },
-  {
-    name: "Paul",
-    city: "Reims",
-    skills: [
-      { title: "C++", votes: 10 },
-      { title: "Rust", votes: 8 },
-    ],
-  },
-];
 
 const App = () => {
+  const [wilders, setWilders] = useState([]);
   const [counter, setCounter] = useState(0);
+
+  //Stock les résultats dans le state
+  useEffect(() => {
+    const fetchData = async () => {
+       const wilders = await axios.get("http://localhost:3000/api/Wilder")
+       console.log(wilders.data);
+       setWilders(wilders.data);
+    };
+
+    fetchData();
+  },[]);//tableau vide ne sera appelée qu'une seule fois lors de la première exécution du composant.
   return (
     <div>
     <header>
@@ -46,13 +26,19 @@ const App = () => {
         <h1>Wilders Book</h1>
       </div>
     </header>
+    <div className='formRow'>
+      <Form  />
+    </div>
     <main className="container">
       <h4>Wilders</h4>
       <section className="card-row">
-        {/* <Wilder name={"joe lebrouck"} skills={"php"} />
-        <Wilder name={"joe lafritek"} /> CODE EN DUR*/}
-        {wildersData.map((wilder) => {
-          return <Wilder name={wilder.name} skills={wilder.skills} />
+        {wilders.map((wilder) => {
+          return <Wilder
+          key={wilder.id}
+          name={wilder.name} 
+          city={wilder.city}
+          id={wilder.id}
+          skills={wilder.skills} />
         })}
       </section>
     </main>
